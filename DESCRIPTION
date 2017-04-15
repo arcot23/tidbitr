@@ -1,0 +1,22 @@
+Package: tidbitr
+Title: tidbitr
+Version: 0.0.1.0000
+Authors@R: person("Prabhuram", "Venkatesan", email = "prabhuram@prabhuram.com", role = c("aut", "cre"))
+Description: A tid bit containing a bunch of helper tools
+Depends: R (>= 3.3.1)
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
+Imports: 
+  roxygen2 (>= 5.0.0),
+  tidyr (>= 0.6.1),
+  dplyr(>= 0.5),
+  stringr(>= 1.2),
+  ggplot2(>= 2.2),
+  scales,
+  RColorBrewer,
+  extrafont,
+  RODBC,
+  rJava,
+  RJDBC
+  
