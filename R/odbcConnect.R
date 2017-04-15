@@ -1,8 +1,14 @@
 library(RODBC)
 
-#create a DSN under Control Panel -> Administrative tools
-# -> ODBC with the intended connection
 
+#' @title Runs a SQL query using ODBC driver
+#' @description Runs a SQL query in a database using the ODBC driver and returns a resultset. Before hand a DSN has to be created
+#' under Control Panel -> Administrative tools.
+#' @param query SQL Query to execute.
+#' @param dsn Data source name.
+#' @return SQL resultset in a dataframe
+#' @examples
+#' odbc.run_query("SELECT * FROM ALL_TABLES", "myDSN")
 odbc.run_query <- function (query, dsn = "mydsn") {
   #open the connection
   myconn <- RODBC::odbcConnect(dsn)
