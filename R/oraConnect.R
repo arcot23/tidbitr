@@ -2,8 +2,8 @@ require(rJava)
 require(RJDBC)
 
 
-#' Runs a SQL query in Oracle and returns a resultset.
-#'
+#' @title Runs a SQL query in Oracle
+#' @description Runs a SQL query in Oracle and returns a resultset.
 #' @param query SQL Query to execute.
 #' @param host_name Host name.
 #' @param port Port name. Defaults to port 1521.
@@ -41,7 +41,8 @@ ora.run_query <-
     resultset
   }
 
-#' Converts an Oracle date (dd-MMM-yy) into a Date format.
+#' @title Converts an Oracle date string to a date
+#' @description Converts a string in Oracle date format(dd-MMM-yy) into a R Date.
 #'
 #' @param x Date string to be converted.
 #' @param century Informs if the string has the century included (dd-MM-yyyy). Default is F.

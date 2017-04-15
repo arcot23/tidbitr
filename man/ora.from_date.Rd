@@ -9,7 +9,7 @@ ora.from_date(x, century = F)
 \arguments{
 \item{x}{Date string to be converted.}
 
-\item{century}{Informs if the string has the century included (dd-MM-YYYY). Default is F.}
+\item{century}{Informs if the string has the century included (dd-MM-yyyy). Default is F.}
 }
 \value{
 Returns the date string as a date
