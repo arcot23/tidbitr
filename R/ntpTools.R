@@ -37,7 +37,7 @@ table.compare <- function(x, y, left_exclude = T)
 #' clipbrd.write(ds)
 #' ds %>%
 #'   clipbrd.write()
-clipbrd.write <- function(x, sep = "\t", quote = "\"")
+clipbrd.write <- function(x, sep = "\t", quote = T)
 {
   x %>%
    write.table("clipboard", sep = sep, quote = quote , row.names = F)
