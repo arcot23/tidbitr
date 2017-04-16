@@ -92,13 +92,10 @@ marco.world_map <- function(map_title = "World Map", sub_title= paste("Dated", S
 }
 
 
-format_as_date <- function(param) as.Date(param, "%d-%b-%y")
-
-
 gg_bar <- function(data, xaxis, yaxis, xlab = "x", ylab = "y", title) {
   #data$xaxis <- data[xaxis]
   #data$yaxis <- data[yaxis]
-  
+
   ggplot2::ggplot (data , aes_string(x = xaxis, y = yaxis, fill = yaxis)) +
     ggplot2::geom_bar(stat = "identity", position = "dodge") +
     ggplot2::geom_text(aes_string(label = yaxis), hjust = 1.5, size = 3) +
