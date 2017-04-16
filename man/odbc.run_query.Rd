@@ -2,7 +2,7 @@
 % Please edit documentation in R/odbcConnect.R
 \name{odbc.run_query}
 \alias{odbc.run_query}
-\title{Runs a SQL query using ODBC driver.}
+\title{Runs a SQL query using ODBC driver}
 \usage{
 odbc.run_query(query, dsn = "mydsn")
 }
@@ -16,7 +16,7 @@ SQL resultset in a dataframe
 }
 \description{
 Runs a SQL query in a database using the ODBC driver and returns a resultset. Before hand a DSN has to be created
-under Control Panel -> Administrative tools
+under Control Panel -> Administrative tools.
 }
 \examples{
 odbc.run_query("SELECT * FROM ALL_TABLES", "myDSN")

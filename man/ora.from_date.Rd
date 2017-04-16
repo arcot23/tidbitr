@@ -2,7 +2,7 @@
 % Please edit documentation in R/oraConnect.R
 \name{ora.from_date}
 \alias{ora.from_date}
-\title{Converts an Oracle date (dd-MMM-yy) into a Date format.}
+\title{Converts an Oracle date string to a date}
 \usage{
 ora.from_date(x, century = F)
 }
@@ -15,7 +15,7 @@ ora.from_date(x, century = F)
 Returns the date string as a date
 }
 \description{
-Converts an Oracle date (dd-MMM-yy) into a Date format.
+Converts a string in Oracle date format(dd-MMM-yy) into a R Date.
 }
 \examples{
 ora.from_date("01-JAN-16")

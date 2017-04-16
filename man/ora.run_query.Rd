@@ -2,7 +2,7 @@
 % Please edit documentation in R/oraConnect.R
 \name{ora.run_query}
 \alias{ora.run_query}
-\title{Runs a SQL query in Oracle and returns a resultset.}
+\title{Runs a SQL query in Oracle}
 \usage{
 ora.run_query(query, host_name, port = "1521", sid = "xe", user_name, pwd)
 }
@@ -27,4 +27,5 @@ Runs a SQL query in Oracle and returns a resultset.
 }
 \examples{
 ora.run_query("SELECT * FROM ALL_TABLES", "act", 1580, xe, "scott", "tiger")
+
 }
