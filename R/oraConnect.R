@@ -13,6 +13,7 @@ require(RJDBC)
 #' @return SQL resultset in a dataframe
 #' @examples
 #' ora.run_query("SELECT * FROM ALL_TABLES", "act", 1580, xe, "scott", "tiger")
+#'
 ora.run_query <-
   function (query,
             host_name,
