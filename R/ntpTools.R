@@ -26,6 +26,8 @@ table.compare <- function(x, y, left_exclude = T)
 
 }
 
+    env.compare <- function(query, conn1, conn2, left_exclude = T){  table.compare(ora.qry(query, conn1), ora.qry(query, conn2), left_exclude)}
+    
 #' @title Copies to clipboard
 #' @description Copies an object to clipboard as a tsv table.
 #'
