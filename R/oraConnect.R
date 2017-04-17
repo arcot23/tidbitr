@@ -42,6 +42,8 @@ ora.run_query <-
     resultset
   }
 
+ora.qry <- function (query, connstr){  ora.run_query(query,                        connstr["host_name"],                        connstr["port"],                        connstr["sid"],                        connstr["user_name"],                        connstr["pwd"]) %>%    as_data_frame()}
+
 #' @title Converts an Oracle date string to a date
 #' @description Converts a string in Oracle date format(dd-MMM-yy) into a R Date.
 #'
