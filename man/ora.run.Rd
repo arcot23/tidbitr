@@ -4,12 +4,13 @@
 \alias{ora.run}
 \title{Runs a SQL query in preferred environment.}
 \usage{
-ora.run(query, env)
+ora.run(query, env = "dev")
 }
 \arguments{
 \item{query}{SQL Query to execute.}
 
-\item{env}{Environment name. Defaults to dev. Other values are stg, tst, prod.}
+\item{env}{Environment name as string. The function will parse the environment name to its equivalent connection string stored under ora.connstr.[env]. This connection must be defined in advance that must contain five variables host_name, port, sid, user_name, pwd. Defaults to environment dev.
+E.g., ora.connstr.dev <- list(host_name = "localhost", port = "1521", sid = "xe", user_name = "scott", pwd = "tiger")}
 }
 \value{
 SQL resultset as a tibble
