@@ -20,7 +20,7 @@ ora.run_query(query, host_name, port = "1521", sid = "xe", user_name, pwd)
 \item{pwd}{Password for the connection in plain text.}
 }
 \value{
-SQL resultset in a dataframe
+SQL resultset in a tibble
 }
 \description{
 Runs a SQL query in Oracle and returns a resultset.

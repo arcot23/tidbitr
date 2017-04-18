@@ -1,8 +1,4 @@
-library(ggplot2) #devtools::install_github("hadley/ggplot2")
-library(scales)
-library(RColorBrewer)
-# library(gridExtra)
-# library(grid)
+library(tidyverse)
 library(extrafont)
 
 loadfonts(quiet = TRUE)
