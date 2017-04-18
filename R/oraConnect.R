@@ -42,6 +42,7 @@ ora.run_query <-
     resultset
   }
 
+
 #' @title Runs a SQL query in preferred environment.
 #' @description Runs a SQL query in Oracle and returns a resultset.
 #' @param query SQL Query to execute.
@@ -55,6 +56,7 @@ ora.run <- function(query, env)
   eval(parse(text = paste0("conn_str = ora.connstr.$", env = "dev")))
   ora.run_query(query, conn_str$host_name, conn_str$port, conn_str$sid, conn_str$user_name, conn_str$pwd)
 }
+
 
 #' @title Converts an Oracle date string to a date
 #' @description Converts a string in Oracle date format(dd-MMM-yy) into a R Date.

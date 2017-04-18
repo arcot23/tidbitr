@@ -28,6 +28,7 @@ table.compare <- function(x, y, left_exclude = T)
 
 }
 
+
 #' @title Compares two SQL resultsets from two database environments
 #' @description Takes a SQL statement as an input and executes the SQL in two database environments, then compares the SQL resultset for differences.
 #'
@@ -48,6 +49,7 @@ env.compare <-
       left_exclude
     )
   }
+
 
 #' @title Copies to clipboard
 #' @description Copies an object to clipboard as a tsv table.
