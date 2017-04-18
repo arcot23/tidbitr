@@ -10,7 +10,7 @@ require(RJDBC)
 #' @param sid Service Id. Defaults to xe.
 #' @param user_name User name for the connection in plain text.
 #' @param pwd Password for the connection in plain text.
-#' @return SQL resultset in a dataframe
+#' @return SQL resultset in a tibble
 #' @examples
 #' ora.run_query("SELECT * FROM ALL_TABLES", "act", 1580, xe, "scott", "tiger")
 #'
@@ -35,12 +35,26 @@ ora.run_query <-
       )
 
     # execute query
-    resultset <- RJDBC::dbGetQuery(jdbcConnection, query)
+    resultset <- tibble::as_data_frame(RJDBC::dbGetQuery(jdbcConnection, query))
 
     # close connection
     RJDBC::dbDisconnect(jdbcConnection)
     resultset
   }
+
+#' @title Runs a SQL query in preferred environment.
+#' @description Runs a SQL query in Oracle and returns a resultset.
+#' @param query SQL Query to execute.
+#' @param env Environment name. Defaults to dev. Other values are stg, tst, prod.
+#' @return SQL resultset as a tibble
+#' @examples
+#' ora.run("SELECT * FROM ALL_TABLES", "stg")
+#'
+ora.run <- function(query, env)
+{
+  eval(parse(text = paste0("conn_str = ora.connstr.$", env = "dev")))
+  ora.run_query(query, conn_str$host_name, conn_str$port, conn_str$sid, conn_str$user_name, conn_str$pwd)
+}
 
 #' @title Converts an Oracle date string to a date
 #' @description Converts a string in Oracle date format(dd-MMM-yy) into a R Date.

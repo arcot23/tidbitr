@@ -4,7 +4,7 @@
 \alias{clipbrd.write}
 \title{Copies to clipboard}
 \usage{
-clipbrd.write(x, sep = "\\t", quote = "\\"")
+clipbrd.write(x, sep = "\\t", quote = T)
 }
 \arguments{
 \item{x}{tbl to copy.}
