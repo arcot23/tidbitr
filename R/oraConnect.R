@@ -46,15 +46,17 @@ ora.run_query <-
 #' @title Runs a SQL query in preferred environment.
 #' @description Runs a SQL query in Oracle and returns a resultset.
 #' @param query SQL Query to execute.
-#' @param env Environment name. Defaults to dev. Other values are stg, tst, prod.
+#' @param env Environment name as string. The function will parse the environment name to its equivalent connection string stored under ora.connstr.[env]. This connection must be defined in advance that must contain five variables host_name, port, sid, user_name, pwd. Defaults to environment dev.
+#' E.g., ora.connstr.dev <- list(host_name = "localhost", port = "1521", sid = "xe", user_name = "scott", pwd = "tiger")
+#'
 #' @return SQL resultset as a tibble
 #' @examples
 #' ora.run("SELECT * FROM ALL_TABLES", "stg")
 #'
-ora.run <- function(query, env)
+ora.run <- function(query, env = "dev")
 {
-  eval(parse(text = paste0("conn_str = ora.connstr.$", env = "dev")))
-  ora.run_query(query, conn_str$host_name, conn_str$port, conn_str$sid, conn_str$user_name, conn_str$pwd)
+  eval(parse(text = paste0("conn_str = ora.connstr.", env)))
+  ora.run_query(query, conn_str["host_name"], conn_str["port"], conn_str["sid"], conn_str["user_name"], conn_str["pwd"])
 }
 
 
