@@ -1,39 +1,49 @@
 library(plyr)
 
-dataframe.get_stat <- function(df)
+data_frame.summary <- function(df,
+                               sample = 20,
+                               sample_delim = ";")
 {
-  mystat <-
-    t(colwise(function(x) {
-      list(
-        typeof(x),
-        length(x) ,
-        length(x[is.na(x)]) ,
-        length(unique(x[!is.na(x)])) ,
-        ifelse(is.numeric(x), mean(x), NA),
-        ifelse(is.numeric(x), paste(quantile(
-          x, seq(0, 1, 0.25), na.rm = T
-        ), collapse = ", "), NA),
-        ifelse(is.infinite(min(
-          stringr::str_length(x[!is.na(x)])
-        )), NA, min(stringr::str_length(x[!is.na(x)]))),
-        ifelse(is.infinite(max(
-          stringr::str_length(x[!is.na(x)])
-        )), NA, max(stringr::str_length(x[!is.na(x)]))),
-        paste(head(unique(x[!is.na(x)]), 20), collapse = "; ")
-      )
-    })(df))
+  parse <- function(x) {
+    list(
+      typeof(x),
+      length(x) ,
+      length(which(is.na(x))) ,
+      n_distinct(x, na.rm = T) ,
+      ifelse(is.numeric(x), mean(x), NA),
+      ifelse(is.numeric(x), paste(quantile(
+        x, seq(0, 1, 0.25), na.rm = T
+      ), collapse = ", "), NA),
+      ifelse(is.infinite(min(
+        stringr::str_length(na.omit(x))
+      )), NA, min(stringr::str_length(na.omit(
+        x
+      )))),
+      ifelse(is.infinite(max(
+        stringr::str_length(na.omit(x))
+      )), NA, max(stringr::str_length(na.omit(
+        x
+      )))),
+      paste(head(unique(na.omit(
+        x
+      )), sample), collapse = sample_delim)
+    )
+  }
+  mystat <- colwise(parse)(df)
+  mystat <- t(mystat)
+  mystat <- cbind(rownames(mystat) , mystat)
   colnames(mystat) <-
     c(
-      "Data Type",
-      "Records",
+      "Element",
+      "Type",
+      "Rows",
       "N/As",
-      "Unique Records",
+      "Distinct_Rows",
       "Mean",
-      "Min, Q1, Median, Q3, Max",
-      "Min String Length",
-      "Max String Length",
-      "20
-      Samples"
+      "Min_Q1_Median_Q3_Max",
+      "MinStrLen",
+      "MaxStrLen",
+      paste(sample, "Samples")
     )
   mystat
 }

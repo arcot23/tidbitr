@@ -69,7 +69,8 @@ clipbrd.write <- function(x, sep = "\t", quote = T)
       "clipboard-48016",
       sep = sep,
       quote = quote ,
-      row.names = F
+      row.names = F,
+      na = ""
     )
 }
 
