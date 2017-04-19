@@ -2,7 +2,7 @@ library(plyr)
 
 data_frame.summary <- function(df,
                                sample = 20,
-                               sample_delim = ";")
+                               sample_delim = "; ")
 {
   parse <- function(x) {
     list(
