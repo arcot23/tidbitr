@@ -74,3 +74,21 @@ ora.from_date <- function(x, century = F)
 {
   as.Date(x, ifelse(century, "%d-%b-%Y", "%d-%b-%y"))
 }
+
+
+ora.get_dict <- function(db_table, env = "dev") {
+  ora.run(sprintf("SELECT * FROM ALL_TAB_COLS WHERE TABLE_NAME = '%s'", db_table), env) %>%
+    mutate(
+      table_column = sprintf(
+        "%s.%s[%s(%s,%s)] %s",
+        OWNER,
+        TABLE_NAME,
+        DATA_TYPE,
+        DATA_PRECISION,
+        DATA_SCALE,
+        if_else(NULLABLE == "Y", 'NULL', 'NO NULL')
+      )
+    ) %>%
+    select(table_column)
+
+}
