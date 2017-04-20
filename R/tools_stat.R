@@ -10,7 +10,7 @@ data_frame.summary <- function(df,
       length(x) ,
       length(which(is.na(x))) ,
       n_distinct(x, na.rm = T) ,
-      ifelse(is.numeric(x), mean(x), NA),
+      ifelse(is.numeric(x), mean(x, na.rm = T), NA),
       ifelse(is.numeric(x), paste(quantile(
         x, seq(0, 1, 0.25), na.rm = T
       ), collapse = ", "), NA),
