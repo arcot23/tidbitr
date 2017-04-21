@@ -3,14 +3,17 @@ library(xml2)
 #' @description Parses through all XML end nodes and returns the text of those nodes in a tibble.
 #'
 #' @param x XML document.
+#' @param path Xpath to node for which text has to be collected. Defaults to * that will collect text of all nodes.
 #' @return Returns xpath to a node, node name and text value in a tibble.
 #'
 #' @examples
 #' get_all_node_text(xml2::read_xml("https://www.w3schools.com/xml/simple.xml")) %>%
 #'   View()
-get_all_node_text <- function(x)
+#' get_all_node_text(xml2::read_xml("https://www.w3schools.com/xml/simple.xml"), "calories") %>%
+#'   View()
+get_all_node_text <- function(x, path = "*")
 {
-  all_nodes <- xml_find_all(x, ".//*")
+  all_nodes <- xml_find_all(x, paste0(".//", path))
   df <- data.frame()
   for (i in 1:length(all_nodes))
   {

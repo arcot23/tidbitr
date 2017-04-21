@@ -4,10 +4,12 @@
 \alias{get_all_node_text}
 \title{Gets all XML node text}
 \usage{
-get_all_node_text(x)
+get_all_node_text(x, path = "*")
 }
 \arguments{
 \item{x}{XML document.}
+
+\item{path}{Xpath to node for which text has to be collected. Defaults to * that will collect text of all nodes.}
 }
 \value{
 Returns xpath to a node, node name and text value in a tibble.
@@ -17,5 +19,7 @@ Parses through all XML end nodes and returns the text of those nodes in a tibble
 }
 \examples{
 get_all_node_text(xml2::read_xml("https://www.w3schools.com/xml/simple.xml")) \%>\%
+  View()
+get_all_node_text(xml2::read_xml("https://www.w3schools.com/xml/simple.xml"), "calories") \%>\%
   View()
 }
