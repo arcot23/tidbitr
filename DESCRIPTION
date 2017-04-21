@@ -9,6 +9,7 @@ Encoding: UTF-8
 LazyData: true
 Imports: 
   roxygen2 (>= 5.0.0),
+  xml2 (>= 1.1),
   extrafont (>= 0.17),
   tidyverse,
   scales,
