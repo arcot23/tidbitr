@@ -8,8 +8,8 @@ library(RODBC)
 #' @param dsn Data source name.
 #' @return SQL resultset in a dataframe
 #' @examples
-#' odbc.run_query("SELECT * FROM ALL_TABLES", "myDSN")
-odbc.run_query <- function (query, dsn = "mydsn") {
+#' odbc_run("SELECT * FROM ALL_TABLES", "myDSN")
+odbc_run <- function (query, dsn = "mydsn") {
   #open the connection
   myconn <- RODBC::odbcConnect(dsn)
   #dataset <- sqlFetch(myconn, "seg_accounts_attr")

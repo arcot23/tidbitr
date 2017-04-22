@@ -12,9 +12,9 @@ require(RJDBC)
 #' @param pwd Password for the connection in plain text.
 #' @return SQL resultset in a tibble
 #' @examples
-#' ora.run_query("SELECT * FROM ALL_TABLES", "act", 1580, xe, "scott", "tiger")
+#' ora_run_("SELECT * FROM ALL_TABLES", "act", 1580, xe, "scott", "tiger")
 #'
-ora.run_query <-
+ora_run_ <-
   function (query,
             host_name,
             port = "1521",
@@ -51,33 +51,26 @@ ora.run_query <-
 #'
 #' @return SQL resultset as a tibble
 #' @examples
-#' ora.run("SELECT * FROM ALL_TABLES", "stg")
+#' ora_run("SELECT * FROM ALL_TABLES", "stg")
 #'
-ora.run <- function(query, env = "dev")
+ora_run <- function(query, env = "dev")
 {
   eval(parse(text = paste0("conn_str = ora.connstr.", env)))
-  ora.run_query(query, conn_str["host_name"], conn_str["port"], conn_str["sid"], conn_str["user_name"], conn_str["pwd"])
+  ora_run_(query, conn_str["host_name"], conn_str["port"], conn_str["sid"], conn_str["user_name"], conn_str["pwd"])
 }
 
 
-#' @title Converts an Oracle date string to a date
-#' @description Converts a string in Oracle date format(dd-MMM-yy) into a R Date.
+#' @title Gets table description from Oracle db
+#' @description Table description of an Oracle table is retrieved in a concise format.
 #'
-#' @param x Date string to be converted.
-#' @param century Informs if the string has the century included (dd-MM-yyyy). Default is F.
-#' @return Returns the date string as a date
+#' @param db_table Name of the database table.
+#' @param env Environment string to use for forming the connection string.
+#' @return Returns a data frame
+#'
 #' @examples
-#' ora.from_date("01-JAN-16")
-#' ora.from_date("01-JAN-2017", T)
-
-ora.from_date <- function(x, century = F)
-{
-  as.Date(x, ifelse(century, "%d-%b-%Y", "%d-%b-%y"))
-}
-
-
-ora.get_dict <- function(db_table, env = "dev") {
-  ora.run(sprintf("SELECT * FROM ALL_TAB_COLS WHERE TABLE_NAME = '%s'", db_table), env) %>%
+#' ora_table_desc("EMP", "dev")
+ora_table_desc <- function(db_table, env = "dev") {
+  ora_run(sprintf("SELECT * FROM ALL_TAB_COLS WHERE TABLE_NAME = '%s'", db_table), env) %>%
     mutate(
       table_column = sprintf(
         "%s.%s[%s(%s,%s)] %s",
