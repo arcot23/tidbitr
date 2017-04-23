@@ -19,6 +19,7 @@ SQL resultset as a tibble
 Runs a SQL query in Oracle and returns a resultset.
 }
 \examples{
+ora.connstr.stg <- list(host_name = "localhost", port = "1521", sid = "xe", user_name = "scott", pwd = "tiger")
 OraRun("SELECT * FROM ALL_TABLES", "stg")
 
 }

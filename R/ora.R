@@ -51,6 +51,7 @@ OraRun_ <-
 #'
 #' @return SQL resultset as a tibble
 #' @examples
+#' ora.connstr.stg <- list(host_name = "localhost", port = "1521", sid = "xe", user_name = "scott", pwd = "tiger")
 #' OraRun("SELECT * FROM ALL_TABLES", "stg")
 #'
 OraRun <- function(query, env = "dev")
