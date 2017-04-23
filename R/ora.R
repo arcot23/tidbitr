@@ -12,9 +12,9 @@ require(RJDBC)
 #' @param pwd Password for the connection in plain text.
 #' @return SQL resultset in a tibble
 #' @examples
-#' ora_run_("SELECT * FROM ALL_TABLES", "act", 1580, xe, "scott", "tiger")
+#' OraRun_("SELECT * FROM ALL_TABLES", "act", 1580, xe, "scott", "tiger")
 #'
-ora_run_ <-
+OraRun_ <-
   function (query,
             host_name,
             port = "1521",
@@ -51,12 +51,12 @@ ora_run_ <-
 #'
 #' @return SQL resultset as a tibble
 #' @examples
-#' ora_run("SELECT * FROM ALL_TABLES", "stg")
+#' OraRun("SELECT * FROM ALL_TABLES", "stg")
 #'
-ora_run <- function(query, env = "dev")
+OraRun <- function(query, env = "dev")
 {
   eval(parse(text = paste0("conn_str = ora.connstr.", env)))
-  ora_run_(query, conn_str["host_name"], conn_str["port"], conn_str["sid"], conn_str["user_name"], conn_str["pwd"])
+  OraRun_(query, conn_str["host_name"], conn_str["port"], conn_str["sid"], conn_str["user_name"], conn_str["pwd"])
 }
 
 
@@ -68,9 +68,9 @@ ora_run <- function(query, env = "dev")
 #' @return Returns a data frame
 #'
 #' @examples
-#' ora_table_desc("EMP", "dev")
-ora_table_desc <- function(db_table, env = "dev") {
-  ora_run(sprintf("SELECT * FROM ALL_TAB_COLS WHERE TABLE_NAME = '%s'", db_table), env) %>%
+#' OraTableDesc("EMP", "dev")
+OraTableDesc <- function(db_table, env = "dev") {
+  OraRun(sprintf("SELECT * FROM ALL_TAB_COLS WHERE TABLE_NAME = '%s'", db_table), env) %>%
     mutate(
       table_column = sprintf(
         "%s.%s[%s(%s,%s)] %s",

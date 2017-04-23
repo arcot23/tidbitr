@@ -1,33 +1,72 @@
 library(tidyverse)
 
-#' @title Compare two dataframe for difference
-#' @description Compare two data frames for left exclude or right exclude comparison.
+#' @title Compare two dataframe for differences
+#' @description Compare two data frames.
 #' Both the data frames must have the same set of columns.
 #'
 #' @param x First data frame to compare.
 #' @param y Second data frame to compare with.
-#' @param left_exclude Informs if left exclude comparison has to be used. If F, then uses right exclude join and is same as compare(y, x).
+#' @param inXbutNotY If True (default) informs to find differences in X and not in Y. If False infors to find differences in Y and not in X.
 #' @return Returns a tibble with the difference.
 #'
 #' @examples
-#' compare(x, y)
-#' compare(y, x)
-compare <- function(x, y, left_exclude = T)
+#' Compare(x, y)
+#' Compare(y, x)
+Compare <- function(x, y, inXbutNotY = T)
 {
   if (length(x) != length(y))
     stop("Number of columns between x and y are not the same")
   if (!identical(colnames(x), colnames(y)))
-    stop("Column names between x and y are not the same")
+    stop("Column names between x and y are not the same or the order is different")
   if (!identical(sapply(x, class), sapply(y, class)))
-    stop("Columns between x and y are not the same data type")
+    stop("Columns between x and y are not of the same data type")
 
-  if (left_exclude)
+  if (inXbutNotY)
     dplyr::setdiff(x, y)
   else
     dplyr::setdiff(y, x)
 
 }
 
+#' @title Compare two dataframe to show differences highlighted
+#' @description Compares two data frames to show two additional columns x_match, y_match to inform the number of rows that matches against x and y. These columns informs if the row is present in x or y or both. Both the data frames must have the same set of columns.
+#'
+#' @param x First data frame to compare.
+#' @param y Second data frame to compare with.
+#'
+#' @return Returns a tibble with the difference.
+#'
+
+CompareAndShowAll <- function(x, y, col.names = c("lhs_matches", "rhs_matches"))
+{
+  if (length(x) != length(y))
+    stop("Number of columns between x and y are not the same")
+  if (!identical(colnames(x), colnames(y)))
+    stop("Column names between x and y are not the same")
+  if (!identical(sapply(x, class), sapply(y, class)))
+    stop("Columns between x and y are not of the same data type")
+
+  all <- dplyr::union(x, y)
+
+  df <- data.frame()
+  for (i in 1:nrow(all))
+  {
+    df <-
+      rbind(df, cbind (
+        all[i,],
+        x_match = nrow(dplyr::intersect(all[i,], x)),
+        y_match = nrow(dplyr::intersect(all[i,], y))
+      ))
+  }
+
+  colnames(df)[length(df)-1] <-  col.names[1]
+  colnames(df)[length(df)] <-  col.names[2]
+  tibble::as_data_frame(df)
+}
+
+`%=%` <- #create a new binary pipe operator
+  function (x, y)
+    CompareAndShowAll(x, y)
 
 #' @title Compares two SQL resultsets from two database environments
 #' @description Takes a SQL statement as an input and executes the SQL in two database environments, then compares the SQL resultset for differences.
@@ -35,17 +74,15 @@ compare <- function(x, y, left_exclude = T)
 #' @param query SQL Query.
 #' @param env1 Environment string to the first database.
 #' @param env2 Environment string to the second database.
-#' @param left_exclude left_exclude Informs if left exclude comparison has to be used. If F, then uses right exclude join and is same as compare(y, x).
+#' @param inXbutNotY If True (default) informs to find differences in X and not in Y. If False infors to find differences in Y and not in X.
 #' @return Returns a tibble of differences
 #'
-compare_ora_dataset <-
+CompareOraDataset <-
   function(query,
            env1,
            env2,
-           left_exclude = T) {
-    compare(
-      ora_run(query, env1),
-      ora_run(query, env2),
-      left_exclude
-    )
+           inXbutNotY = T) {
+    Compare(ora_run(query, env1),
+            ora_run(query, env2),
+            inXbutNotY)
   }

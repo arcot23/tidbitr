@@ -6,10 +6,10 @@
 #' @return Copies the object to the clipboard.
 #'
 #' @examples
-#' clipbrd_write(ds)
+#' ClipbrdWrite(ds)
 #' ds %>%
-#'   clipbrd_write()
-clipbrd_write <- function(x, sep = "\t", quote = T)
+#'   ClipbrdWrite()
+ClipbrdWrite <- function(x, sep = "\t", quote = T)
 {
   x %>%
     write.table(
@@ -28,19 +28,20 @@ clipbrd_write <- function(x, sep = "\t", quote = T)
 #' @return Gets clipboard.
 #'
 #' @examples
-#' clipbrd_read()
-#' ds <- clipbrd_read(quote = "'")
-clipbrd_read <-
+#' ClipbrdRead()
+#' ds <- ClipbrdRead(quote = "'")
+ClipbrdRead <-
   function(sep = "\t",
            quote = "\"",
-           stringsAsFactors = F) {
+           stringsAsFactors = F, ...) {
     tibble::as_data_frame(
       read.table(
         "clipboard",
         sep = sep,
         quote = quote,
         stringsAsFactors = stringsAsFactors,
-        header = T
+        header = T,
+        ...
       )
     )
   }
