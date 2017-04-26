@@ -9,15 +9,17 @@
 #' ClipbrdWrite(ds)
 #' ds %>%
 #'   ClipbrdWrite()
-ClipbrdWrite <- function(x, sep = "\t", quote = T)
+ClipbrdWrite <- function(x, sep = "\t", quote = T, na = "", row.names = F, col.names = T, ...)
 {
   x %>%
     write.table(
       "clipboard-48016",
       sep = sep,
-      quote = quote ,
-      row.names = F,
-      na = ""
+      quote = quote,
+      na = na,
+      row.names = row.names,
+      col.names = col.names,
+      ...
     )
 }
 
@@ -33,14 +35,15 @@ ClipbrdWrite <- function(x, sep = "\t", quote = T)
 ClipbrdRead <-
   function(sep = "\t",
            quote = "\"",
-           stringsAsFactors = F, ...) {
+           stringsAsFactors = F,
+           header = T, ...) {
     tibble::as_data_frame(
       read.table(
         "clipboard",
         sep = sep,
         quote = quote,
         stringsAsFactors = stringsAsFactors,
-        header = T,
+        header = header,
         ...
       )
     )
