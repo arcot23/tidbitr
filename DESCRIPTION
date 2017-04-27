@@ -13,9 +13,6 @@ Imports:
   extrafont (>= 0.17),
   tidyverse,
   scales,
-  RColorBrewer,
-  RODBC (>= 1.3),
-  rJava,
-  RJDBC
+  RColorBrewer
 RoxygenNote: 6.0.1
 Suggests: testthat
