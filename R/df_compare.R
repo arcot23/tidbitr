@@ -7,7 +7,7 @@ library(tidyverse)
 #' @param x First data frame to compare.
 #' @param y Second data frame to compare with.
 #' @param inXbutNotY If True (default) informs to find differences in X and not in Y. If False infors to find differences in Y and not in X.
-#' @return Returns a tibble with the difference.
+#' @return Returns a tibble with differences with three new columns a. duplicates, count of matches based on a key. b. lhs_matches, count of matches in x for the entire row, c. rhs_matches, count of matches in y for the entire row.
 #'
 #' @examples
 #' Compare(x, y)
@@ -37,7 +37,7 @@ Compare <- function(x, y, inXbutNotY = T)
 #' @return Returns a tibble with the difference.
 #'
 
-CompareAndShowAll <- function(x, y, col.names = c("lhs_matches", "rhs_matches"))
+CompareAndShowAll <- function(x, y, col.names = c("lhs_matches", "rhs_matches"), key_col = 1)
 {
   if (length(x) != length(y))
     stop("Number of columns between x and y are not the same")
@@ -54,6 +54,7 @@ CompareAndShowAll <- function(x, y, col.names = c("lhs_matches", "rhs_matches"))
     df <-
       rbind(df, cbind (
         all[i,],
+        duplicates = nrow(filter(all, all[c(key_col)] == c(all[i,key_col]))),
         x_match = nrow(dplyr::intersect(all[i,], x)),
         y_match = nrow(dplyr::intersect(all[i,], y))
       ))
@@ -61,7 +62,8 @@ CompareAndShowAll <- function(x, y, col.names = c("lhs_matches", "rhs_matches"))
 
   colnames(df)[length(df)-1] <-  col.names[1]
   colnames(df)[length(df)] <-  col.names[2]
-  tibble::as_data_frame(df)
+  tibble::as_data_frame(df) %>%
+    arrange(.[[key_col]])
 }
 
 `%=%` <- #create a new binary pipe operator
