@@ -58,10 +58,10 @@ CompareAndShowAll <-
       df <-
         rbind(df,
               cbind (
-                all[i, ],
-                n_duplicates = nrow(filter(all, all[,check_duplicates_of] == c(all[i, check_duplicates_of]))),
-                x_match = nrow(dplyr::intersect(all[i, ], x)),
-                y_match = nrow(dplyr::intersect(all[i, ], y))
+                all[i,],
+                n_duplicates = nrow(filter(all, all[, check_duplicates_of] == c(all[i, check_duplicates_of]))),
+                x_match = nrow(dplyr::intersect(all[i,], x)),
+                y_match = nrow(dplyr::intersect(all[i,], y))
               ))
     }
 
@@ -73,4 +73,9 @@ CompareAndShowAll <-
 
 `%=%` <- #create a new binary pipe operator
   function (x, y)
-    CompareAndShowAll(x, y)
+  {
+    x$x = T
+    y$y = T
+    merge(x, y, all = T) %>%
+      as_data_frame()
+  }
