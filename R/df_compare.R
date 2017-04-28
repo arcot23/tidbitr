@@ -37,37 +37,40 @@ Compare <- function(x, y, inXbutNotY = T)
 #' @return Returns a tibble with the difference.
 #'
 
-CompareAndShowAll <- function(x, y, col.names = c("lhs_matches", "rhs_matches"), key_col = 1)
-{
-  if (length(x) != length(y))
-    stop("Number of columns between x and y are not the same")
-  if (!identical(colnames(x), colnames(y)))
-    stop("Column names between x and y are not the same")
-  if (!identical(sapply(x, class), sapply(y, class)))
-    stop("Columns between x and y are not of the same data type")
-
-  all <- dplyr::union(x, y)
-
-  df <- data.frame()
-  for (i in 1:nrow(all))
+CompareAndShowAll <-
+  function(x,
+           y,
+           col.names = c("lhs_matches", "rhs_matches"),
+           check_duplicates_of = 1)
   {
-    df <-
-      rbind(df, cbind (
-        all[i,],
-        duplicates = nrow(filter(all, all[c(key_col)] == c(all[i,key_col]))),
-        x_match = nrow(dplyr::intersect(all[i,], x)),
-        y_match = nrow(dplyr::intersect(all[i,], y))
-      ))
-  }
+    if (length(x) != length(y))
+      stop("Number of columns between x and y are not the same")
+    if (!identical(colnames(x), colnames(y)))
+      stop("Column names between x and y are not the same")
+    if (!identical(sapply(x, class), sapply(y, class)))
+      stop("Columns between x and y are not of the same data type")
 
-  colnames(df)[length(df)-1] <-  col.names[1]
-  colnames(df)[length(df)] <-  col.names[2]
-  tibble::as_data_frame(df) %>%
-    arrange(.[[key_col]])
-}
+    all <- dplyr::union(x, y)
+
+    df <- data.frame()
+    for (i in 1:nrow(all))
+    {
+      df <-
+        rbind(df,
+              cbind (
+                all[i, ],
+                n_duplicates = nrow(filter(all, all[,check_duplicates_of] == c(all[i, check_duplicates_of]))),
+                x_match = nrow(dplyr::intersect(all[i, ], x)),
+                y_match = nrow(dplyr::intersect(all[i, ], y))
+              ))
+    }
+
+    colnames(df)[length(df) - 1] <-  col.names[1]
+    colnames(df)[length(df)] <-  col.names[2]
+    tibble::as_data_frame(df) %>%
+      arrange(.[[check_duplicates_of]])
+  }
 
 `%=%` <- #create a new binary pipe operator
   function (x, y)
     CompareAndShowAll(x, y)
-
-
