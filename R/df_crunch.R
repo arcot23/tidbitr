@@ -11,7 +11,7 @@ Crunch <- function(df,
                                sample_delim = "; ")
 {
   parse <- function(x) {
-    list(
+    c(
       typeof(x),
       length(x) ,
       length(which(is.na(x))) ,
@@ -43,7 +43,7 @@ Crunch <- function(df,
       "Element",
       "Type",
       "Rows",
-      "N/As",
+      "NAs",
       "Distinct_Rows",
       "Mean",
       "Min_Q1_Median_Q3_Max",
@@ -51,5 +51,6 @@ Crunch <- function(df,
       "MaxStrLen",
       paste(sample, "Samples")
     )
-  mystat
+  mystat %>%
+    as_data_frame()
 }
