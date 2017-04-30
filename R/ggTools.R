@@ -1,6 +1,7 @@
 library(tidyverse)
 library(extrafont)
 
+#font_import() #required for the first time
 loadfonts(quiet = TRUE)
 windowsFonts(Arial=windowsFont("TT Arial"))
 
