@@ -44,11 +44,11 @@ CompareAndShowAll <-
            check_duplicates_of = 1)
   {
     if (length(x) != length(y))
-      stop("Number of columns between x and y are not the same")
+      stop("Column count between x and y are not the same")
     if (!identical(colnames(x), colnames(y)))
       stop("Column names between x and y are not the same")
     if (!identical(sapply(x, class), sapply(y, class)))
-      stop("Columns between x and y are not of the same data type")
+      stop("Column types between x and y are not the same")
 
     all <- dplyr::union(x, y)
 
@@ -74,7 +74,14 @@ CompareAndShowAll <-
 `%=%` <- #create a new binary pipe operator
   function (x, y)
   {
-    x$x = T
+    if (length(x) != length(y))
+      warning("Column count between x and y are not the same")
+    if (!identical(colnames(x), colnames(y)))
+      warning("Column names between x and y are not the same")
+    if (!identical(sapply(x, class), sapply(y, class)))
+      warning("Column types between x and y are not the same")
+
+        x$x = T
     y$y = T
     merge(x, y, all = T) %>%
       as_data_frame()
