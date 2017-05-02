@@ -14,7 +14,7 @@ Compare(x, y, inXbutNotY = T)
 \item{inXbutNotY}{If True (default) informs to find differences in X and not in Y. If False infors to find differences in Y and not in X.}
 }
 \value{
-Returns a tibble with the difference.
+Returns a tibble with differences with three new columns a. duplicates, count of matches based on a key. b. lhs_matches, count of matches in x for the entire row, c. rhs_matches, count of matches in y for the entire row.
 }
 \description{
 Compare two data frames.

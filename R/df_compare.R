@@ -71,6 +71,16 @@ CompareAndShowAll <-
       arrange(.[[check_duplicates_of]])
   }
 
+#' @title Compares two datasets
+#' @description Merges and compares two datasets.
+#'#'
+#' @param x Dataset to compare.
+#' @param y Dataset to compare with,
+#'
+#' @return Returns a dataset after merging and two column that denotes which of the merged rows exists in x or y or both.
+#'
+#' @example
+#' x %=% y
 `%=%` <- #create a new binary pipe operator
   function (x, y)
   {

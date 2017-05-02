@@ -4,7 +4,8 @@
 \alias{CompareAndShowAll}
 \title{Compare two dataframe to show differences highlighted}
 \usage{
-CompareAndShowAll(x, y, col.names = c("lhs_matches", "rhs_matches"))
+CompareAndShowAll(x, y, col.names = c("lhs_matches", "rhs_matches"),
+  check_duplicates_of = 1)
 }
 \arguments{
 \item{x}{First data frame to compare.}

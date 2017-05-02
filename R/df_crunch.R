@@ -6,6 +6,9 @@ library(plyr)
 #' @param df Data frame.
 #' @param sample Number of samples from each column. Defaults to 20.
 #' @param sample_delim Delimiter for each sample.
+#'
+#' @return
+#' Crunch(census)
 Crunch <- function(df,
                                sample = 20,
                                sample_delim = "; ")

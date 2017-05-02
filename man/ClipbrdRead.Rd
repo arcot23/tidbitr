@@ -4,7 +4,8 @@
 \alias{ClipbrdRead}
 \title{Copies from clipboard}
 \usage{
-ClipbrdRead(sep = "\\t", quote = "\\"", stringsAsFactors = F, ...)
+ClipbrdRead(sep = "\\t", quote = "\\"", stringsAsFactors = F,
+  header = T, ...)
 }
 \arguments{
 \item{sep}{Column separator. Defaulted to \t.}

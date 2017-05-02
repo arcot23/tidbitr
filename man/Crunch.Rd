@@ -13,6 +13,9 @@ Crunch(df, sample = 20, sample_delim = "; ")
 
 \item{sample_delim}{Delimiter for each sample.}
 }
+\value{
+Crunch(census)
+}
 \description{
 Shows element type, row count, na row count, unique row count, mean, min, Q1, median, Q3, max, min string length, max string length and set of samples from each of the columns in a data frame.
 }
