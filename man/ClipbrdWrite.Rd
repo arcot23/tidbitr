@@ -19,7 +19,7 @@ Copies the object to the clipboard.
 Copies an object to clipboard as a tsv table.
 }
 \examples{
-ClipbrdWrite(ds)
-ds \%>\%
+ClipbrdWrite(census)
+census \%>\%
   ClipbrdWrite()
 }
