@@ -8,10 +8,10 @@ library(plyr)
 #' @param sample_delim Delimiter for each sample.
 #'
 #' @return
-#' Crunch(census)
-Crunch <- function(df,
-                               sample = 20,
-                               sample_delim = "; ")
+#' Stat(census)
+Stat <- function(df,
+                   sample = 20,
+                   sample_delim = "; ")
 {
   parse <- function(x) {
     c(

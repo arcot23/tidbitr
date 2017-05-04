@@ -1,3 +1,3 @@
-setClass("NumsWithComma")
-setAs("character", "NumsWithComma", function(from)
+setClass("NumWithComma")
+setAs("character", "NumWithComma", function(from)
   as.numeric(gsub(",", "", from)))

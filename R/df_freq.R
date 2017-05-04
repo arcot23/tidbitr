@@ -9,11 +9,11 @@
 #' @return Returns a frequency table in a key/value pair format for all the columns. Number of columns returned is length of the dataset x 2.
 #'
 #' @example
-#' FreqTable(census)
-#' FreqTable(census)$State
-#' FreqTable(census, 50, "d")
-#' FreqTable(census, 100, "d") #will throw an error, use FreqTable(census, 100, "l") instead
-FreqTable <- function(x, records = 10, as = "l") {
+#' Freq(census)
+#' Freq(census)$State
+#' Freq(census, 50, "d")
+#' Freq(census, 100, "d") #will throw an error, use Freq(census, 100, "l") instead
+Freq <- function(x, records = 10, as = "l") {
   len <- length(x) * 2
   s <-   x %>%
     llply(

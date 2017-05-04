@@ -6,8 +6,8 @@
 #' @return Copies the object to the clipboard.
 #'
 #' @examples
-#' ClipbrdWrite(ds)
-#' ds %>%
+#' ClipbrdWrite(census)
+#' census %>%
 #'   ClipbrdWrite()
 ClipbrdWrite <- function(x, sep = "\t", quote = T, na = "", row.names = F, col.names = T, ...)
 {
