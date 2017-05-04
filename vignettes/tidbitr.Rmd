@@ -11,21 +11,21 @@ vignette: >
 
 `tidbitr` offers handy functions that will be a shorthand for data analysis.
 
-- Clipboard functions `ClipbrdRead` and `ClipbrdWrite` to read and write to clipboard
+- Clipboard functions `CopyFromClipboard` and `CopyToClipboard` to read and write to clipboard
 - `Freq` returns a frequency table based on all the columns in a dataset
 - `Recon` reconciles and compares between two dataset for differences in them. Similarly operator`%=%` merges and compares two datasets
 - `Stat` returns statistical summary of all the columns in a dataset. Stats includes # of rows, mean, median, N/A values, etc.
-- `XmlGetValues` gets text of all XML nodes
+- `GetXMLNodes` gets text of all XML nodes
 - `NumWithComma` class that can coerce numbers with comma as numbers when reading from files
 
-## ClipbrdWrite
+## CopyToClipboard
 
 ```{r}
 census %>%
-  ClipbrdWrite(quote = F) 
+  CopyToClipboard(quote = F) 
 ```
 
-Similarly `ClipbrdRead` can be used to read dataframe contents from the clipboard.
+Similarly `CopyFromClipboard` can be used to read dataframe contents from the clipboard.
 
 ## Freq
 
@@ -50,10 +50,11 @@ Recon(list1, list2)
 Stat(mtcars)
 ```
 
-## XmlGetValues
+## GetXMLNodes
 
 ```{r}
-XmlGetValues(xml2::read_xml("https://www.w3schools.com/xml/simple.xml"))
+GetXMLNodes(xml2::read_xml("https://www.w3schools.com/xml/simple.xml"))
+GetXMLNodes(xml2::read_xml("https://www.w3schools.com/xml/simple.xml"), "calories")
 ```
 
 Check the [xml](https://www.w3schools.com/xml/simple.xml) yourself

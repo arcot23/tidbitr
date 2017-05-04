@@ -8,11 +8,11 @@ library(xml2)
 #' @return Returns xpath to a node, node name and text value in a tibble.
 #'
 #' @examples
-#' XmlGetValues(xml2::read_xml("https://www.w3schools.com/xml/simple.xml")) %>%
+#' GetXMLNodes(xml2::read_xml("https://www.w3schools.com/xml/simple.xml")) %>%
 #'   View()
-#' XmlGetValues(xml2::read_xml("https://www.w3schools.com/xml/simple.xml"), "calories") %>%
+#' GetXMLNodes(xml2::read_xml("https://www.w3schools.com/xml/simple.xml"), "calories") %>%
 #'   View()
-XmlGetValues <- function(x, nodepath = "*")
+GetXMLNodes <- function(x, nodepath = "*")
 {
   all_nodes <- xml_find_all(x, paste0(".//", nodepath))
   df <- data.frame()

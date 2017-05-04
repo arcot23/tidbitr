@@ -6,10 +6,10 @@
 #' @return Copies the object to the clipboard.
 #'
 #' @examples
-#' ClipbrdWrite(census)
+#' CopyToClipboard(census)
 #' census %>%
-#'   ClipbrdWrite()
-ClipbrdWrite <- function(x, sep = "\t", quote = T, na = "", row.names = F, col.names = T, ...)
+#'   CopyToClipboard()
+CopyToClipboard <- function(x, sep = "\t", quote = T, na = "", row.names = F, col.names = T, ...)
 {
   x %>%
     write.table(
@@ -30,9 +30,9 @@ ClipbrdWrite <- function(x, sep = "\t", quote = T, na = "", row.names = F, col.n
 #' @return Gets clipboard.
 #'
 #' @examples
-#' ClipbrdRead()
-#' ds <- ClipbrdRead(quote = "'")
-ClipbrdRead <-
+#' CopyFromClipboard()
+#' ds <- CopyFromClipboard(quote = "'")
+CopyFromClipboard <-
   function(sep = "\t",
            quote = "\"",
            stringsAsFactors = F,

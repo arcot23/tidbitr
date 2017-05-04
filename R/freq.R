@@ -1,4 +1,4 @@
-#'
+
 #' @title Frequency table of all columns
 #' @description Generates a frequency distribution table of all columns in a data set.
 #'
@@ -8,11 +8,12 @@
 #'
 #' @return Returns a frequency table in a key/value pair format for all the columns. Number of columns returned is length of the dataset x 2.
 #'
-#' @example
+#' @examples
 #' Freq(census)
 #' Freq(census)$State
 #' Freq(census, 50, "d")
 #' Freq(census, 100, "d") #will throw an error, use Freq(census, 100, "l") instead
+#'
 Freq <- function(x, records = 10, as = "l") {
   len <- length(x) * 2
   s <-   x %>%

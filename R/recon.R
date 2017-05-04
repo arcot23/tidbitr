@@ -53,8 +53,9 @@ Recon <-
 #'
 #' @return Returns a dataset after merging and two column that denotes which of the merged rows exists in x or y or both.
 #'
-#' @example
+#' @examples
 #' x %=% y
+
 `%=%` <- #create a new binary pipe operator
   function (x, y)
   {
