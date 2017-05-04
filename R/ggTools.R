@@ -1,12 +1,6 @@
 library(tidyverse)
 library(extrafont)
 
-#font_import() #required for the first time
-loadfonts(quiet = TRUE)
-windowsFonts(Arial=windowsFont("TT Arial"))
-
-default_palette <- "Set3"
-
 marco.fill <- function(color_palette = default_palette) {
   ggplot2::scale_fill_brewer(palette = color_palette)
   #scale_fill_manual(values =  colorRampPalette(brewer.pal(9, color_palette))(100))
