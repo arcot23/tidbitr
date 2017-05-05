@@ -10,7 +10,17 @@ CopyToClipboard(x, sep = "\\t", quote = T, na = "", row.names = F,
 \arguments{
 \item{x}{tbl to copy.}
 
-\item{sep}{Column separator. Defaulted to \t.}
+\item{sep}{Column separator. Defaulted to tab.}
+
+\item{quote}{T (default) informs that the result will be within quotes.}
+
+\item{na}{Value for NAs. Default is an empty string.}
+
+\item{row.names}{Informs if row names must be included.}
+
+\item{col.names}{Informs if column names must be included.}
+
+\item{...}{Other parameters.}
 }
 \value{
 Copies the object to the clipboard.

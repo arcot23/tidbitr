@@ -8,7 +8,15 @@ CopyFromClipboard(sep = "\\t", quote = "\\"", stringsAsFactors = F,
   header = T, ...)
 }
 \arguments{
-\item{sep}{Column separator. Defaulted to \t.}
+\item{sep}{Column separator. Defaulted to tab.}
+
+\item{quote}{Informs the quote character.}
+
+\item{stringsAsFactors}{Informs if string has to be treated as factors.}
+
+\item{header}{Informs if a header is the first row.}
+
+\item{...}{Other parameters.}
 }
 \value{
 Gets clipboard.

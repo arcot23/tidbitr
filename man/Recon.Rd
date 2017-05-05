@@ -11,12 +11,16 @@ Recon(x, y, col.names = c("lhs_matches", "rhs_matches"),
 \item{x}{First data frame to compare.}
 
 \item{y}{Second data frame to compare with.}
+
+\item{col.names}{Informs the title of the new columns informs if matches exists. Defaulted to lhs_matches and rhs_matches.}
+
+\item{check_duplicates_of}{Informs the primary key columnindex for which duplicates has to be checked. The result will be listed in a column named duplicates.}
 }
 \value{
 Returns a tibble with the difference.
 }
 \description{
-Compares two data frames to show two additional columns x_match, y_match to inform the number of rows that matches against x and y. These columns informs if the row is present in x or y or both. Both the data frames must have the same set of columns.
+Compares two data frames to show two additional columns lhs_matches, rhs_matches to inform the number of rows that matches against x and y. These columns informs if the row is present in x or y or both. Both the data frames must have the same set of columns.
 }
 \examples{
 Recon(list1, list2)

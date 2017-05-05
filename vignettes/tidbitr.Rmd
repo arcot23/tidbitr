@@ -21,8 +21,11 @@ vignette: >
 ## CopyToClipboard
 
 ```{r}
+library(dplyr)
+library(tidbitr)
+
 census %>%
-  CopyToClipboard(quote = F) 
+  tidbitr::CopyToClipboard(quote = F) 
 ```
 
 Similarly `CopyFromClipboard` can be used to read dataframe contents from the clipboard.

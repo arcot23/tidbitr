@@ -1,10 +1,12 @@
 library(tidyverse)
 
 #' @title Compare two dataframe to show differences highlighted
-#' @description Compares two data frames to show two additional columns x_match, y_match to inform the number of rows that matches against x and y. These columns informs if the row is present in x or y or both. Both the data frames must have the same set of columns.
+#' @description Compares two data frames to show two additional columns lhs_matches, rhs_matches to inform the number of rows that matches against x and y. These columns informs if the row is present in x or y or both. Both the data frames must have the same set of columns.
 #'
 #' @param x First data frame to compare.
 #' @param y Second data frame to compare with.
+#' @param col.names Informs the title of the new columns informs if matches exists. Defaulted to lhs_matches and rhs_matches.
+#' @param check_duplicates_of Informs the primary key columnindex for which duplicates has to be checked. The result will be listed in a column named duplicates.
 #'
 #' @return Returns a tibble with the difference.
 #'

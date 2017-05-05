@@ -1,0 +1,13 @@
+---
+output: github_document
+---
+
+`tidbitr` offers set of handy functions useful for data analysis.
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
