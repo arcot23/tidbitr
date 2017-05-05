@@ -1,5 +1,5 @@
 Package: tidbitr
-Title: Handy functions to analyze your data frame
+Title: Make analysis simpler
 Version: 0.0.1
 Authors@R: person("Prabhuram", "Venkatesan", email = "prabhuram.v@gmail.com", role = c("aut", "cre"))
 Description: A tid bit containing a bunch of helper tools
