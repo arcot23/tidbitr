@@ -1,6 +1,5 @@
 library(tidyverse)
 
-
 #' @title Compare two dataframe to show differences highlighted
 #' @description Compares two data frames to show two additional columns x_match, y_match to inform the number of rows that matches against x and y. These columns informs if the row is present in x or y or both. Both the data frames must have the same set of columns.
 #'
@@ -41,8 +40,17 @@ Recon <-
 
     colnames(df)[length(df) - 1] <-  col.names[1]
     colnames(df)[length(df)] <-  col.names[2]
-    tibble::as_data_frame(df) %>%
+    z <- tibble::as_data_frame(df) %>%
       arrange(.[[check_duplicates_of]])
+    cat(sprintf(
+      "# x: %s, y: %s, xUy: %s, x-y: %s, y-x: %s;",
+      nrow(x),
+      nrow(y),
+      nrow(z),
+      nrow(z[z[col.names[2]] != T,]),
+      nrow(z[z[col.names[1]] != T,])
+    ))
+    z
   }
 
 #' @title Compares two datasets
@@ -66,8 +74,19 @@ Recon <-
     if (!identical(sapply(x, class), sapply(y, class)))
       warning("Column types between x and y are not the same")
 
-        x$x = T
+    x$x = T
     y$y = T
-    merge(x, y, all = T) %>%
+    z <- merge(x, y, all = T) %>%
       as_data_frame()
+
+    cat(sprintf(
+      "# x: %s, y: %s, xUy: %s, x-y: %s, y-x: %s;",
+      nrow(x),
+      nrow(y),
+      nrow(z),
+      nrow(z[z$y != T,]),
+      nrow(z[z$x != T,])
+    ))
+    z
+
   }

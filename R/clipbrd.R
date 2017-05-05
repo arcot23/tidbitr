@@ -9,19 +9,27 @@
 #' CopyToClipboard(census)
 #' census %>%
 #'   CopyToClipboard()
-CopyToClipboard <- function(x, sep = "\t", quote = T, na = "", row.names = F, col.names = T, ...)
-{
-  x %>%
-    write.table(
-      "clipboard-48016",
-      sep = sep,
-      quote = quote,
-      na = na,
-      row.names = row.names,
-      col.names = col.names,
-      ...
-    )
-}
+CopyToClipboard <-
+  function(x,
+           sep = "\t",
+           quote = T,
+           na = "",
+           row.names = F,
+           col.names = T,
+           ...)
+  {
+    x %>%
+      write.table(
+        "clipboard-48016",
+        sep = sep,
+        quote = quote,
+        na = na,
+        row.names = row.names,
+        col.names = col.names,
+        ...
+      )
+    cat(sprintf("# Copied %s rows", nrow(x)))
+  }
 
 #' @title Copies from clipboard
 #' @description Copies a tsv table from clipboard.
@@ -36,7 +44,8 @@ CopyFromClipboard <-
   function(sep = "\t",
            quote = "\"",
            stringsAsFactors = F,
-           header = T, ...) {
+           header = T,
+           ...) {
     tibble::as_data_frame(
       read.table(
         "clipboard",
