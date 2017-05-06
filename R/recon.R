@@ -15,7 +15,7 @@ library(tidyverse)
 Recon <-
   function(x,
            y,
-           col.names = c("lhs_matches", "rhs_matches"),
+           col.names = c("lhs", "rhs"),
            check_duplicates_of = 1)
   {
     if (length(x) != length(y))
@@ -33,10 +33,10 @@ Recon <-
       df <-
         rbind(df,
               cbind (
-                all[i,],
+                all[i, ],
                 n_duplicates = nrow(filter(all, all[, check_duplicates_of] == c(all[i, check_duplicates_of]))),
-                x_match = nrow(dplyr::intersect(all[i,], x)),
-                y_match = nrow(dplyr::intersect(all[i,], y))
+                x_match = nrow(dplyr::intersect(all[i, ], x)),
+                y_match = nrow(dplyr::intersect(all[i, ], y))
               ))
     }
 
@@ -44,14 +44,34 @@ Recon <-
     colnames(df)[length(df)] <-  col.names[2]
     z <- tibble::as_data_frame(df) %>%
       arrange(.[[check_duplicates_of]])
-    cat(sprintf(
-      "# x: %s, y: %s, xUy: %s, x-y: %s, y-x: %s;",
-      nrow(x),
-      nrow(y),
-      nrow(z),
-      nrow(z[z[col.names[2]] != T,]),
-      nrow(z[z[col.names[1]] != T,])
-    ))
+    cat(
+      sprintf(
+        "# %s: %s \U00D7 %s, %s: %s \U00D7 %s, %s \U2229 %s : %s \U00D7 %s, %s \U22C3 %s: %s \U00D7 %s, %s \U2212 %s: %s \U00D7 %s, %s \U2212 %s: %s \U00D7 %s\r\n",
+        col.names[1],
+        nrow(x),
+        length(x),
+        col.names[2],
+        nrow(y),
+        length(x),
+        col.names[1],
+        col.names[2],
+        nrow(dplyr::intersect(x, y)),
+        length(dplyr::intersect(x, y)),
+        col.names[1],
+        col.names[2],
+        nrow(z),
+        length(z) - 3,
+        col.names[1],
+        col.names[2],
+        nrow(z[z[col.names[2]] != T, ]),
+        length(z[z[col.names[2]] != T, ]) - 3,
+        col.names[2],
+        col.names[1],
+        nrow(z[z[col.names[1]] != T, ]),
+        length(z[z[col.names[1]] != T, ]) - 3
+      )
+    )
+
     z
   }
 
@@ -76,19 +96,30 @@ Recon <-
     if (!identical(sapply(x, class), sapply(y, class)))
       warning("Column types between x and y are not the same")
 
-    x$x = T
-    y$y = T
-    z <- merge(x, y, all = T) %>%
+    lhs <- x
+    rhs <- y
+    lhs$x <- T
+    rhs$y <- T
+    z <- merge(lhs, rhs, all = T) %>%
       as_data_frame()
 
-    cat(sprintf(
-      "# x: %s, y: %s, xUy: %s, x-y: %s, y-x: %s;",
-      nrow(x),
-      nrow(y),
-      nrow(z),
-      nrow(z[z$y != T,]),
-      nrow(z[z$x != T,])
-    ))
+    cat(
+      sprintf(
+        "# x: %s \U00D7 %s, y: %s \U00D7 %s, x \U2229 y : %s \U00D7 %s, x \U22C3 y: %s \U00D7 %s, x \U2212 y: %s \U00D7 %s, y \U2212 x: %s \U00D7 %s\r\n",
+        nrow(x),
+        length(x),
+        nrow(y),
+        length(x),
+        nrow(dplyr::intersect(x, y)),
+        length(dplyr::intersect(x, y)),
+        nrow(z),
+        length(z) - 2,
+        nrow(z[z$y != T, ]),
+        length(z[z$y != T, ]) - 2,
+        nrow(z[z$x != T, ]),
+        length(z[z$x != T, ]) - 2
+      )
+    )
     z
 
   }

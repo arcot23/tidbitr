@@ -33,7 +33,7 @@ CopyToClipboard <-
         col.names = col.names,
         ...
       )
-    cat(sprintf("# Copied %s rows", nrow(x)))
+    cat(sprintf("# Copied %s rows\r\n", nrow(x)))
   }
 
 #' @title Copies from clipboard

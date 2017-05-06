@@ -54,6 +54,7 @@ Stat <- function(df,
       "MaxStrLen",
       paste(sample, "Samples")
     )
+  cat(sprintf("# input: %s \U00D7 %s\r\n", nrow(df), length(df)))
   mystat %>%
     as_data_frame()
 }
