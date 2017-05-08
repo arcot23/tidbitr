@@ -11,7 +11,7 @@ marco.color <- function(color_palette = default_palette) {
   #ggplot2::scale_colour_manual(values =  colorRampPalette(brewer.pal(9, color_palette))(100))
 }
 
-marco.draw_titles <- function(xlab = "value", ylab = "freq", title, subtitle = paste("Dated", Sys.Date()), source = NA, dated = Sys.Date())
+marco.draw_titles <- function(xlab = "value", ylab = "freq", title = "title", subtitle = paste("Dated", Sys.Date()), source = NA, dated = Sys.Date())
 {
   labs(
     x = xlab,
@@ -48,7 +48,7 @@ marco.theme <- function(base_size = 10, base_family = "Franklin Gothic Book", le
   theme(
     plot.margin =      unit(c(1,1,1,1),"mm")
     , plot.background = element_rect(fill=NA, color=NA, alp)
-    , plot.title = element_text(family="Franklin Gothic Heavy", size=base_size, hjust = 0)
+    , plot.title = element_text(family="Franklin Gothic Heavy", size=base_size + 1, hjust = 0)
     , plot.subtitle=element_text(family=base_family, size=base_size)
     , plot.caption=element_text(family=base_family, size=base_size-2)
     , panel.grid.minor =  element_line(color = grid_minor_color)
@@ -64,7 +64,7 @@ marco.theme <- function(base_size = 10, base_family = "Franklin Gothic Book", le
     , strip.text.x = element_text(family=base_family, size=base_size, color = strip_text_color)
     , strip.text.y = element_text(family=base_family, size=base_size, color = strip_text_color)
     , strip.background = element_rect(fill = "Gray", color =NA)
-    , axis.title = element_text(family=base_family, size=base_size-1)
+    , axis.title = element_text(family=base_family, size=base_size+1)
     , axis.text = element_text(family=base_family, size=base_size)
     , axis.text.x = element_text(hjust = 1, vjust = 1)
     , axis.ticks = element_line(color=NA)
