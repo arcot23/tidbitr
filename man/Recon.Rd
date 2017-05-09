@@ -4,8 +4,7 @@
 \alias{Recon}
 \title{Compare two dataframe to show differences highlighted}
 \usage{
-Recon(x, y, col.names = c("lhs_matches", "rhs_matches"),
-  check_duplicates_of = 1)
+Recon(x, y, col.names = c("lhs", "rhs"), check_duplicates_of = 1)
 }
 \arguments{
 \item{x}{First data frame to compare.}
