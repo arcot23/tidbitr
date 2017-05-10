@@ -13,7 +13,7 @@
 #'   geom_bar(stat = "count") +
 #'   coord_flip() +
 #'   theme_cuckoo(font_family = "Tahoma",legend_position = "none")
-theme_cuckoo <- function(font_family = "Tahoma", base_size = 10, legend_position = c(0.01,0.99))
+theme_cuckoo <- function(font_family = "Tahoma", base_size = 10, legend_position = c(0.01,0.99), ...)
 {
   grid_major_color <- "whitesmoke"
   grid_minor_color <- "snow"
@@ -41,10 +41,11 @@ theme_cuckoo <- function(font_family = "Tahoma", base_size = 10, legend_position
     , strip.background = element_rect(fill = "Gray", color =NA)
     , axis.title = element_text(family=font_family, size=base_size-1)
     , axis.text = element_text(family=font_family, size=base_size)
-    , axis.text.x = element_text(hjust = 1, vjust = 1)
+    #, axis.text.x = element_text(hjust = 1, vjust = 1)
     , axis.ticks = element_line(color=NA)
     , axis.line.x = element_line(color=axis_line_color, size = .2)
     , axis.line.y = element_line(color=NA)
+    , ...
   )
 }
 
@@ -66,7 +67,7 @@ theme_cuckoo <- function(font_family = "Tahoma", base_size = 10, legend_position
 #'   coord_flip() +
 #'   labs_cuckoo(title = "County Frequency by State", subtitle = NULL, xlab = "State") +
 #'   theme_cuckoo(font_family = "Tahoma",legend_position = "none")
-labs_cuckoo <- function(xlab = "value", ylab = "freq", title = "title", subtitle = paste("Dated", Sys.Date()), source = NA, dated = Sys.Date())
+labs_cuckoo <- function(xlab = "value", ylab = "freq", title = "title", subtitle = paste("Dated", Sys.Date()), source = "Unknown", dated = Sys.Date())
 {
   labs(
     x = xlab,
@@ -77,3 +78,16 @@ labs_cuckoo <- function(xlab = "value", ylab = "freq", title = "title", subtitle
   )
 }
 
+
+text_cuckoo <- function(lbl, font_family = "Tahoma", hjust = 1, ...)
+{
+  geom_text(
+    aes_string(label = lbl),
+    size = 3,
+    stat = "count",
+    family = font_family,
+    hjust = hjust,
+    vjust = 0.5,
+    ...
+  )
+}

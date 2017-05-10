@@ -1,0 +1,54 @@
+---
+title: "cuckoo"
+author: "Prabhuram Venkatesan"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+Functions in `cuckoo` supports in creating plots with a unique formatting. `theme_cuckoo` plots a chart using the cuckoo theme.
+```{r, fig.height=9, fig.width=3}
+census %>%
+  ggplot(aes(x = State, fill = State)) +
+  geom_bar(stat = "count") +
+  coord_flip() +
+  theme_cuckoo(legend_position = "none")
+
+```
+
+`labs_cuckoo` allows labelling of title, subtitle, x and y axis titles.
+
+```{r, fig.height=9, fig.width=3}
+census %>%
+  ggplot(aes(x = State, fill = State)) +
+  geom_bar(stat = "count") +
+  coord_flip() +
+  labs_cuckoo(title = stringr::str_wrap("County Frequency by State", 15), subtitle = NULL, xlab = "State") +
+  theme_cuckoo(legend_position = "none")
+```
+
+`text_cuckoo` allows labelling of points or bars in a chart.
+
+```{r, fig.height=9, fig.width=3}
+census %>%
+  ggplot(aes(x = State, fill = State)) +
+  geom_bar(stat = "count") +
+  coord_flip() +
+  labs_cuckoo(title = stringr::str_wrap("County Frequency by State", 15), subtitle = NULL, xlab = "State") + 
+  text_cuckoo("..count..") +
+  theme_cuckoo(legend_position = "none") 
+
+```
+
+```{r, fig.height=3, fig.width=9}
+census %>%
+  ggplot(aes(x = State, color = State)) +
+  geom_point(stat = "count", size = 8) +
+  labs_cuckoo(title = "County Frequency by State", subtitle = NULL, xlab = "State") + 
+  text_cuckoo("..count..", color = "black", hjust = 0.5) +
+  theme_cuckoo(font_family = "Tahoma",legend_position = "none", axis.text.x = element_text(angle = 45, hjust = 1)) 
+
+```
+
