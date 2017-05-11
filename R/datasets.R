@@ -53,3 +53,17 @@
 #'
 #' @source Department of Labor
 "unemployment_rate"
+
+#' Table: Life Expectancy
+#'
+#' A dataset containing Life Expectancy by Country or regions (like world, Arab world, etc) between 1960 and 2015
+#' \itemize{
+#'   \item Country.
+#'   \item Year.
+#'   \item Life Expectancy (Age).
+#' }
+#'
+#' @format A data frame with life expectacny from 1960 through 2015.
+#'
+#' @source World Bank @ http://data.worldbank.org/indicator/SP.DYN.LE00.IN
+"LifeExpectancy"

@@ -5,7 +5,7 @@
 \title{Applies the ggplots theme "cuckoo"}
 \usage{
 theme_cuckoo(font_family = "Tahoma", base_size = 10,
-  legend_position = c(0.01, 0.99))
+  legend_position = c(0.01, 0.99), ...)
 }
 \arguments{
 \item{font_family}{Informs the font family to be used as a base. Defaulted to Tahoma.}

@@ -5,7 +5,8 @@
 \title{Label a ggplot}
 \usage{
 labs_cuckoo(xlab = "value", ylab = "freq", title = "title",
-  subtitle = paste("Dated", Sys.Date()), source = NA, dated = Sys.Date())
+  subtitle = paste("Dated", Sys.Date()), source = "Unknown",
+  dated = Sys.Date())
 }
 \arguments{
 \item{xlab}{x-axis label.}

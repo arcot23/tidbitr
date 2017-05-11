@@ -8,7 +8,7 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-Functions in `cuckoo` supports in creating plots with a unique formatting. `theme_cuckoo` plots a chart using the cuckoo theme.
+Functions in `cuckoo` helps in creating plots with a unique formatting. `theme_cuckoo` plots a chart using the cuckoo theme.
 ```{r, fig.height=9, fig.width=3}
 census %>%
   ggplot(aes(x = State, fill = State)) +
@@ -50,5 +50,38 @@ census %>%
   text_cuckoo("..count..", color = "black", hjust = 0.5) +
   theme_cuckoo(font_family = "Tahoma",legend_position = "none", axis.text.x = element_text(angle = 45, hjust = 1)) 
 
+```
+
+```{r, fig.height=4, fig.width=8}
+dat <- LifeExpectancy %>%
+  filter(Country.Code %in% c("WLD", "USA", "IND")) 
+
+dat %>%
+  ggplot() +
+  geom_line(aes(Year, Expectancy, color = Country.Name), size = 2) +
+  geom_text(
+    data = subset(dat, Year == 2015),
+    aes(
+      x = 2015,
+      y = Expectancy,
+      label = Country.Name,
+      color = Country.Name
+    ),
+    hjust = 0,
+    family = "Tahoma",
+    size = 3
+  ) +
+  scale_x_continuous(limits = c(1960, 2025)) +
+  theme_cuckoo(legend_position = "none") +
+  labs_cuckoo(
+    xlab = "Year",
+    ylab = "Age",
+    title = "Life expectancy at birth, total (years)",
+    source = "World Bank",
+    subtitle = stringr::str_wrap(
+      "Derived from male and female life expectancy at birth from sources such as: ( 1 ) United Nations Population Division. World Population Prospects, ( 2 ) Census reports and other statistical publications from national statistical offices, ( 3 ) Eurostat: Demographic Statistics, ( 4 ) United Nations Statistical Division. Population and Vital Statistics Reprot ( various years ), ( 5 ) U.S. Census Bureau: International Database, and ( 6 ) Secretariat of the Pacific Community: Statistics and Demography Programme.",
+      120
+    )
+  )
 ```
 

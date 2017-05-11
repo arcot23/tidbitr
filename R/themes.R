@@ -41,7 +41,7 @@ theme_cuckoo <- function(font_family = "Tahoma", base_size = 10, legend_position
     , strip.background = element_rect(fill = "Gray", color =NA)
     , axis.title = element_text(family=font_family, size=base_size-1)
     , axis.text = element_text(family=font_family, size=base_size)
-    #, axis.text.x = element_text(hjust = 1, vjust = 1)
+    , axis.text.x = element_text(hjust = 1, vjust = 1)
     , axis.ticks = element_line(color=NA)
     , axis.line.x = element_line(color=axis_line_color, size = .2)
     , axis.line.y = element_line(color=NA)
@@ -67,7 +67,7 @@ theme_cuckoo <- function(font_family = "Tahoma", base_size = 10, legend_position
 #'   coord_flip() +
 #'   labs_cuckoo(title = "County Frequency by State", subtitle = NULL, xlab = "State") +
 #'   theme_cuckoo(font_family = "Tahoma",legend_position = "none")
-labs_cuckoo <- function(xlab = "value", ylab = "freq", title = "title", subtitle = paste("Dated", Sys.Date()), source = "Unknown", dated = Sys.Date())
+labs_cuckoo <- function(xlab = NULL, ylab = NULL, title = NULL, subtitle = NULL, source = "Unknown", dated = Sys.Date())
 {
   labs(
     x = xlab,
@@ -79,6 +79,21 @@ labs_cuckoo <- function(xlab = "value", ylab = "freq", title = "title", subtitle
 }
 
 
+#' @title Add text in the plot
+#' @description Adds text to the histograms or points.
+#'
+#' @param lbl Column value to be displayed as label.
+#' @param font_family Font family. Defaulted to Tahoma.
+#' @param hjust Horizontal justification as Left Justified.
+#' @return Returns the text
+#'
+#' @examples
+#' census %>%
+#'   ggplot(aes(x = State, color = State)) +
+#'   geom_point(stat = "count", size = 8) +
+#'   labs_cuckoo(title = "County Frequency by State", subtitle = NULL, xlab = "State") +
+#'   text_cuckoo("..count..", color = "black", hjust = 0.5) +
+#'   theme_cuckoo(font_family = "Tahoma",legend_position = "none", axis.text.x = element_text(angle = 45, hjust = 1))
 text_cuckoo <- function(lbl, font_family = "Tahoma", hjust = 1, ...)
 {
   geom_text(
