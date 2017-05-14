@@ -19,6 +19,9 @@ theme_cuckoo <- function(font_family = "Tahoma", base_size = 10, legend_position
   grid_minor_color <- "snow"
   strip_text_color <- "white"
   axis_line_color <- "gray"
+  update_geom_defaults(geom = "text", list(family = font_family))
+  update_geom_defaults(geom = "label", list(family = font_family, fill = "whitesmoke", size = 3))
+  update_geom_defaults(geom = "line", list(size = 2, colour = "Grey"))
   #ggplot2::theme_bw(base_size = base_size, font_family = font_family) %+replace%
   theme(
     plot.margin =      unit(c(1,1,1,1),"mm")
@@ -39,11 +42,11 @@ theme_cuckoo <- function(font_family = "Tahoma", base_size = 10, legend_position
     , strip.text.x = element_text(family=font_family, size=base_size, color = strip_text_color)
     , strip.text.y = element_text(family=font_family, size=base_size, color = strip_text_color)
     , strip.background = element_rect(fill = "Gray", color =NA)
-    , axis.title = element_text(family=font_family, size=base_size-1)
+    , axis.title = element_text(family=font_family, size=base_size)
     , axis.text = element_text(family=font_family, size=base_size)
     , axis.text.x = element_text(hjust = 1, vjust = 1)
     , axis.ticks = element_line(color=NA)
-    , axis.line.x = element_line(color=axis_line_color, size = .2)
+    , axis.line.x = element_line(color=axis_line_color, size = .3)
     , axis.line.y = element_line(color=NA)
     , ...
   )
@@ -52,10 +55,6 @@ theme_cuckoo <- function(font_family = "Tahoma", base_size = 10, legend_position
 #' @title Label a ggplot
 #' @description A labeler to add title, subtitle, axis titles and footnote to a ggplot.
 #'
-#' @param xlab x-axis label.
-#' @param ylab y-axis label.
-#' @param title Title of the plot.
-#' @param subtitle Subtitle of the plot.
 #' @param source Label for source that will appear as a footnote.
 #' @param dated Label for date that will appear as a footnote.
 #' @return Returns the label
@@ -65,16 +64,13 @@ theme_cuckoo <- function(font_family = "Tahoma", base_size = 10, legend_position
 #'   ggplot(aes(x = State, fill = State)) +
 #'   geom_bar(stat = "count") +
 #'   coord_flip() +
-#'   labs_cuckoo(title = "County Frequency by State", subtitle = NULL, xlab = "State") +
+#'   labs_cuckoo(label = "County Frequency by State", subtitle = NULL, x = "State", y = "Frequency") +
 #'   theme_cuckoo(font_family = "Tahoma",legend_position = "none")
-labs_cuckoo <- function(xlab = NULL, ylab = NULL, title = NULL, subtitle = NULL, source = "Unknown", dated = Sys.Date())
+labs_cuckoo <- function(source = "Unknown", dated = Sys.Date(), ...)
 {
   labs(
-    x = xlab,
-    y = ylab,
-    title = title,
-    subtitle= subtitle,
-    caption=paste0("Source: ", source , "\n" , dated)
+    caption=paste0("Source: ", source , ", " , dated),
+    ...
   )
 }
 

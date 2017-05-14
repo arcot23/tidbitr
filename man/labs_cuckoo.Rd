@@ -4,19 +4,9 @@
 \alias{labs_cuckoo}
 \title{Label a ggplot}
 \usage{
-labs_cuckoo(xlab = "value", ylab = "freq", title = "title",
-  subtitle = paste("Dated", Sys.Date()), source = "Unknown",
-  dated = Sys.Date())
+labs_cuckoo(source = "Unknown", dated = Sys.Date(), ...)
 }
 \arguments{
-\item{xlab}{x-axis label.}
-
-\item{ylab}{y-axis label.}
-
-\item{title}{Title of the plot.}
-
-\item{subtitle}{Subtitle of the plot.}
-
 \item{source}{Label for source that will appear as a footnote.}
 
 \item{dated}{Label for date that will appear as a footnote.}
@@ -32,6 +22,6 @@ census \%>\%
   ggplot(aes(x = State, fill = State)) +
   geom_bar(stat = "count") +
   coord_flip() +
-  labs_cuckoo(title = "County Frequency by State", subtitle = NULL, xlab = "State") +
+  labs_cuckoo(label = "County Frequency by State", subtitle = NULL, x = "State", y = "Frequency") +
   theme_cuckoo(font_family = "Tahoma",legend_position = "none")
 }
