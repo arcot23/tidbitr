@@ -18,17 +18,6 @@ census %>%
 
 ```
 
-`labs_cuckoo` allows labelling of title, subtitle, x and y axis titles.
-
-```{r, fig.height=9, fig.width=3}
-census %>%
-  ggplot(aes(x = State, fill = State)) +
-  geom_bar(stat = "count") +
-  coord_flip() +
-  labs_cuckoo(title = stringr::str_wrap("County Frequency by State", 15), subtitle = NULL, xlab = "State") +
-  theme_cuckoo(legend_position = "none")
-```
-
 `text_cuckoo` allows labelling of points or bars in a chart.
 
 ```{r, fig.height=9, fig.width=3}

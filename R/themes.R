@@ -52,28 +52,6 @@ theme_cuckoo <- function(font_family = "Tahoma", base_size = 10, legend_position
   )
 }
 
-#' @title Label a ggplot
-#' @description A labeler to add title, subtitle, axis titles and footnote to a ggplot.
-#'
-#' @param source Label for source that will appear as a footnote.
-#' @param dated Label for date that will appear as a footnote.
-#' @return Returns the label
-#'
-#' @examples
-#' census %>%
-#'   ggplot(aes(x = State, fill = State)) +
-#'   geom_bar(stat = "count") +
-#'   coord_flip() +
-#'   labs_cuckoo(label = "County Frequency by State", subtitle = NULL, x = "State", y = "Frequency") +
-#'   theme_cuckoo(font_family = "Tahoma",legend_position = "none")
-labs_cuckoo <- function(source = "Unknown", dated = Sys.Date(), ...)
-{
-  labs(
-    caption=paste0("Source: ", source , ", " , dated),
-    ...
-  )
-}
-
 
 #' @title Add text in the plot
 #' @description Adds text to the histograms or points.
