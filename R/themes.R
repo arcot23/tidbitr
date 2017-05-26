@@ -13,22 +13,25 @@
 #'   geom_bar(stat = "count") +
 #'   coord_flip() +
 #'   theme_cuckoo(font_family = "Tahoma",legend_position = "none")
-theme_cuckoo <- function(font_family = "Tahoma", base_size = 10, legend_position = c(0.01,0.99), ...)
+theme_cuckoo <- function(font_family = "Arial", base_size = 10, legend_position = c(0.01,0.99), ...)
 {
   grid_major_color <- "whitesmoke"
   grid_minor_color <- "snow"
   strip_text_color <- "white"
   axis_line_color <- "gray"
-  update_geom_defaults(geom = "text", list(family = font_family, size = 1.5))
-  update_geom_defaults(geom = "label", list(family = font_family, fill = grid_major_color, size = 1.5))
-  update_geom_defaults(geom = "line", list(size = 2, colour = axis_line_color))
+  color <- "darkseagreen3"
+  update_geom_defaults(geom = "text", list(family = font_family, size = round(base_size/3.333)))
+  update_geom_defaults(geom = "label", list(family = font_family, fill = grid_major_color, size = round(base_size/3.333)))
+  update_geom_defaults(geom = "bar", list(size = 2, fill = color))
+  update_geom_defaults(geom = "point", list(size = 3, shape = 21, colour = color, fill = grid_major_color))
+  update_geom_defaults(geom = "line", list(size = 2, colour = color))
   #ggplot2::theme_bw(base_size = base_size, font_family = font_family) %+replace%
   theme(
     plot.margin =      unit(c(1,1,1,1),"mm")
     , plot.background = element_rect(fill=NA, color=NA, alp)
     , plot.title = element_text(family="Arial Black", face = "bold", size=base_size, hjust = 0)
     , plot.subtitle=element_text(family=font_family, size=base_size)
-    , plot.caption=element_text(family=font_family, size=base_size-2, hjust = 0)
+    , plot.caption=element_text(family=font_family, size=base_size-2, hjust = 0, color = axis_line_color)
     , panel.grid.minor =  element_line(color = grid_minor_color)
     , panel.grid.major =  element_line(color = grid_major_color)
     , panel.border = element_rect(fill = NA, color = NA)
