@@ -13,48 +13,29 @@ Stat <- function(df,
                    sample = 20,
                    sample_delim = "; ")
 {
-  parse <- function(x) {
-    c(
-      typeof(x),
-      length(x) ,
-      length(which(is.na(x))) ,
-      n_distinct(x, na.rm = T) ,
-      ifelse(is.numeric(x), mean(x, na.rm = T), NA),
-      ifelse(is.numeric(x), paste(quantile(
-        x, seq(0, 1, 0.25), na.rm = T
-      ), collapse = ", "), NA),
-      ifelse(is.infinite(min(
-        stringr::str_length(na.omit(x))
-      )), NA, min(stringr::str_length(na.omit(
-        x
-      )))),
-      ifelse(is.infinite(max(
-        stringr::str_length(na.omit(x))
-      )), NA, max(stringr::str_length(na.omit(
-        x
-      )))),
-      paste(head(unique(na.omit(
-        x
-      )), sample), collapse = sample_delim)
+  res <- colwise(function(x) {
+    list(
+      nrow = length(x),
+      type = typeof(x),
+      hasNA = length(x[is.na(x) == T]),
+      min = ifelse(is.numeric(x), min(x), NA),
+      max = ifelse(is.numeric(x), max(x), NA),
+      mean = ifelse(is.numeric(x), mean(x), NA),
+      median = ifelse(is.numeric(x), median(x), NA),
+      sd = ifelse(is.numeric(x), sd(x), NA),
+      minstrlen = min(stringr::str_length(x)),
+      maxstrlen = max(stringr::str_length(x)),
+      distinct = length(unique(x)),
+      samples = paste(sample(x, min(sample, length(x))), collapse = sample_delim)
     )
-  }
-  mystat <- colwise(parse)(df)
-  mystat <- t(mystat)
-  mystat <- cbind(rownames(mystat) , mystat)
-  colnames(mystat) <-
-    c(
-      "Element",
-      "Type",
-      "Rows",
-      "NAs",
-      "Distinct_Rows",
-      "Mean",
-      "Min_Q1_Median_Q3_Max",
-      "MinStrLen",
-      "MaxStrLen",
-      paste(sample, "Samples")
-    )
+  })(df) %>%
+    t() %>%
+    broom::tidy() %>%
+    as.tibble() %>%
+    unnest()
+
+  colnames(res) <- c("names", "nrow", "type", "hasNA", "min", "max", "mean", "median", "sd", "minstrlen", "maxstrlen", "distinct", "samples")
+
   cat(sprintf("# input: %s \U00D7 %s\r\n", nrow(df), length(df)))
-  mystat %>%
-    as_data_frame()
+  res
 }

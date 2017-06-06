@@ -6,7 +6,7 @@ library(tidyverse)
 #' @param x First data frame to compare.
 #' @param y Second data frame to compare with.
 #' @param col.names Informs the title of the new columns informs if matches exists. Defaulted to lhs_matches and rhs_matches.
-#' @param check_duplicates_of Informs the primary key columnindex for which duplicates has to be checked. The result will be listed in a column named duplicates.
+#' @param orderby Resulting data frame will be ordered by this column index.
 #'
 #' @return Returns a tibble with the difference.
 #'
@@ -16,7 +16,7 @@ Recon <-
   function(x,
            y,
            col.names = c("lhs", "rhs"),
-           check_duplicates_of = 1)
+           orderby = 1)
   {
     if (length(x) != length(y))
       stop("Column count between x and y are not the same")
@@ -25,25 +25,17 @@ Recon <-
     if (!identical(sapply(x, class), sapply(y, class)))
       stop("Column types between x and y are not the same")
 
-    all <- dplyr::union(x, y)
+    z <- dplyr::union(x, y) %>%
+      as.tibble() %>%
+      dplyr::mutate(seq_along = seq_along(.[[1]])) %>%
+      nest(-seq_along) %>%
+      dplyr::mutate(x_match = map(data, ~ nrow(dplyr::intersect(., x))),
+             y_match = map(data, ~ nrow(dplyr::intersect(., y)))) %>%
+      unnest(x_match, y_match, data) %>%
+      dplyr::select(-seq_along) %>%
+      dplyr::arrange(.[[orderby+2]])
+    colnames(z)[1:2] <- col.names
 
-    df <- data.frame()
-    for (i in 1:nrow(all))
-    {
-      df <-
-        rbind(df,
-              cbind (
-                all[i, ],
-                n_duplicates = nrow(filter(all, all[, check_duplicates_of] == c(all[i, check_duplicates_of]))),
-                x_match = nrow(dplyr::intersect(all[i, ], x)),
-                y_match = nrow(dplyr::intersect(all[i, ], y))
-              ))
-    }
-
-    colnames(df)[length(df) - 1] <-  col.names[1]
-    colnames(df)[length(df)] <-  col.names[2]
-    z <- tibble::as_data_frame(df) %>%
-      arrange(.[[check_duplicates_of]])
     cat(
       sprintf(
         "# %s: %s \U00D7 %s, %s: %s \U00D7 %s, %s \U2229 %s : %s \U00D7 %s, %s \U22C3 %s: %s \U00D7 %s, %s \U2212 %s: %s \U00D7 %s, %s \U2212 %s: %s \U00D7 %s\r\n",
@@ -64,11 +56,11 @@ Recon <-
         col.names[1],
         col.names[2],
         nrow(z[z[col.names[2]] != T, ]),
-        length(z[z[col.names[2]] != T, ]) - 3,
+        length(z[z[col.names[2]] != T, ]) - 2,
         col.names[2],
         col.names[1],
         nrow(z[z[col.names[1]] != T, ]),
-        length(z[z[col.names[1]] != T, ]) - 3
+        length(z[z[col.names[1]] != T, ]) - 2
       )
     )
 

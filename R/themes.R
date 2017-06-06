@@ -29,7 +29,7 @@ theme_cuckoo <- function(font_family = "Arial", base_size = 10, legend_position 
   theme(
     plot.margin =      unit(c(1,1,1,1),"mm")
     , plot.background = element_rect(fill=NA, color=NA, alp)
-    , plot.title = element_text(family="Arial Black", face = "bold", size=base_size, hjust = 0)
+    , plot.title = element_text(family=font_family,  face = "bold", size=base_size + 2, hjust = 0)
     , plot.subtitle=element_text(family=font_family, size=base_size)
     , plot.caption=element_text(family=font_family, size=base_size-2, hjust = 0, color = axis_line_color)
     , panel.grid.minor =  element_line(color = grid_minor_color)
