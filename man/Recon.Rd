@@ -4,7 +4,7 @@
 \alias{Recon}
 \title{Compare two dataframe to show differences highlighted}
 \usage{
-Recon(x, y, col.names = c("lhs", "rhs"), check_duplicates_of = 1)
+Recon(x, y, col.names = c("lhs", "rhs"), orderby = 1)
 }
 \arguments{
 \item{x}{First data frame to compare.}
@@ -13,7 +13,7 @@ Recon(x, y, col.names = c("lhs", "rhs"), check_duplicates_of = 1)
 
 \item{col.names}{Informs the title of the new columns informs if matches exists. Defaulted to lhs_matches and rhs_matches.}
 
-\item{check_duplicates_of}{Informs the primary key columnindex for which duplicates has to be checked. The result will be listed in a column named duplicates.}
+\item{orderby}{Resulting data frame will be ordered by this column index.}
 }
 \value{
 Returns a tibble with the difference.

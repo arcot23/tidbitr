@@ -4,7 +4,7 @@
 \alias{theme_cuckoo}
 \title{Applies the ggplots theme "cuckoo"}
 \usage{
-theme_cuckoo(font_family = "Tahoma", base_size = 10,
+theme_cuckoo(font_family = "Arial", base_size = 10,
   legend_position = c(0.01, 0.99), ...)
 }
 \arguments{
