@@ -13,7 +13,8 @@ Imports:
   extrafont (>= 0.17),
   tidyverse,
   scales,
-  RColorBrewer
+  RColorBrewer,
+  xlsx
 RoxygenNote: 6.0.1
 Suggests: testthat,
     knitr,
