@@ -4,7 +4,7 @@
 \alias{wxls}
 \title{Creates an Excel Spreadsheet}
 \usage{
-wxls(x, filename = deparse(substitute(x)),
+wxls(x, filename = sprintf("./\%s.xlsx", deparse(substitute(x))),
   sheetname = deparse(substitute(x)), ...)
 }
 \examples{
